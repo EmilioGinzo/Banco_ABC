@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_excel("..\Input\Datos Clientes.xlsx",sheet_name = "Sheet1", header = 0)
+df = pd.read_excel("Input\Datos Clientes.xlsx",sheet_name = "Sheet1", header = 0)
 
 #imprime los datos (numero de cuenta, saldo, suma de saldo )del cliente que se le pase
 def datos_cliente(nombre_cliente: str) -> None:
