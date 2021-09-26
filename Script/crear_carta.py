@@ -14,11 +14,11 @@ def datos_cliente(nombre_cliente: str, df: DataFrame) -> object:
 
 def crear_docx(nombre_cliente: str, df: DataFrame) -> None:
     print("creando documentos de " + nombre_cliente)
-    doc = DocxTemplate("Output\BANCO ABC - Carta.docx")
+    doc = DocxTemplate("..\Output\BANCO ABC - Carta.docx")
 
     contenido = datos_cliente(nombre_cliente, df)
     doc.render(contenido)
-    doc.save("Output\BANCO ABC - Carta " + nombre_cliente + ".docx")
+    doc.save("..\Output\BANCO ABC - Carta " + nombre_cliente + ".docx")
 
 
 def cuentas_clientes(df: DataFrame) -> None:
@@ -29,5 +29,5 @@ def cuentas_clientes(df: DataFrame) -> None:
             prev_cliente = cliente
 
 if __name__ == "__main__":
-    df = pd.read_excel("Input\Datos Clientes.xlsx",sheet_name = "Sheet1", header = 0)
+    df = pd.read_excel("..\Input\Datos Clientes.xlsx",sheet_name = "Sheet1", header = 0)
     cuentas_clientes(df)
