@@ -1,7 +1,11 @@
+#recibe datos desde un archivo xlsx ubicado en Input y crea una carta para cada cliente basada en el template ubicado en Input
+# las cartas ya creadas seran almacenadas en Output
+
 import pandas as pd
 from docxtpl import DocxTemplate
 from pandas.core.frame import DataFrame
 from re import findall
+import os
 
 #recibe el nombre de un cliente y el dataframe que contiene al informacion de dicho cliente
 # retorna un diccionario con el nombre del cliente, el numero de cuenta, el saldo y la suma de los saldos de sus cuentas
@@ -41,5 +45,7 @@ def cuentas_clientes(df: DataFrame) -> None:
             prev_cliente = cliente
 
 if __name__ == "__main__":
+    if not os.path.exists('..\Output'):
+        os.makedirs('..\Output')
     df = pd.read_excel("..\Input\Datos Clientes.xlsx",sheet_name = "Sheet1", header = 0)
     cuentas_clientes(df)
