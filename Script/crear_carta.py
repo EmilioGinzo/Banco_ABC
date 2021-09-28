@@ -1,15 +1,23 @@
 import pandas as pd
 from docxtpl import DocxTemplate
 from pandas.core.frame import DataFrame
+from re import findall
 
-#recibe el nombre de un cliente y retorna un diccionario con el nombre del cliente, el numero de cuenta y el saldo
-def datos_cliente(nombre_cliente: str, df: DataFrame) -> object:
+#recibe el nombre de un cliente y el dataframe que contiene al informacion de dicho cliente
+# retorna un diccionario con el nombre del cliente, el numero de cuenta, el saldo y la suma de los saldos de sus cuentas
+def datos_cliente(nombre_cliente: str, df: DataFrame) -> dict:
     cuenta = df.loc[df.Cliente == nombre_cliente, ["N de Cuenta"]].to_string(index = False, header = False)
     saldo = df.loc[df.Cliente == nombre_cliente, ["Saldo"]].to_string(index = False, header = False)
+    saldo_int = findall('[-]?\d+', saldo)
+    suma = 0.00
+    for monto in saldo_int:
+        suma += float(monto)
+    
     contenido = {
         'nombre_cliente': nombre_cliente,
         'numero_de_cuenta': cuenta,
-        'saldo': saldo,}
+        'saldo': saldo,
+        'suma': suma}
     return contenido 
 
 #recibe el nombre de un cliente y el df correspondiente al archivo de excel
